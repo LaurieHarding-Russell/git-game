@@ -1,5 +1,46 @@
 load("@npm//@angular-devkit/architect-cli:index.bzl", "architect", "architect_test")
 
+# Server
+
+cc_binary(
+    name = "GitGame",
+    srcs = [
+        "Server/GitGameServerApp.cpp",
+        "Server/GameController.h",
+        "Server/GameController.cpp",
+    ],
+    deps = [
+        "@boost//:system",
+        "@boost//:asio",
+        "@boost//:date_time",
+        "@boost//:uuid",
+        "@com_github_served//:served",
+    ],
+    visibility = ["//visibility:public"]
+)
+
+cc_binary(
+    name = "GitGameProd",
+    srcs = [
+        "Server/GitGaneServerApp.cpp",
+        "Server/GameController.h",
+        "Server/GameController.cpp",
+    ],
+    deps = [
+        "@boost//:system",
+        "@boost//:asio",
+        "@boost//:date_time",
+        "@boost//:uuid",
+        "@com_github_served//:served",
+    ],
+    includes = [
+        ":build_prod"
+    ],
+    visibility = ["//visibility:public"]
+)
+
+# UI
+
 # These dependencies are needed for any ng command
 filegroup(
     name = "common_deps",

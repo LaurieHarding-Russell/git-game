@@ -4,6 +4,7 @@ import { BrowserModule } from '@angular/platform-browser';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { GameComponent } from './game/game.component';
+import { GameService } from './game/game.service';
 import { MenuComponent } from './menu/menu.component';
 
 @NgModule({
@@ -16,7 +17,9 @@ import { MenuComponent } from './menu/menu.component';
     AppRoutingModule,
     BrowserModule,
   ],
-  providers: [],
+  providers: [
+    GameService
+  ],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
