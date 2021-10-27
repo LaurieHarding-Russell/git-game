@@ -41,6 +41,7 @@ maven_install(
         "org.lwjgl:lwjgl-openal::natives-windows:" + LWJGL_VERSION,
         "org.lwjgl:lwjgl-opengl::natives-windows:" + LWJGL_VERSION,
         "org.lwjgl:lwjgl-stb::natives-windows:" + LWJGL_VERSION,
+        "org.eclipse.jgit:org.eclipse.jgit:4.6.0.201612231935-r",
     ],
     maven_install_json = "//:maven_install.json",
     repositories = [
@@ -49,6 +50,7 @@ maven_install(
     ],
 )
 
+#$ bazel run @unpinned_maven//:pin
 load("@maven//:defs.bzl", "pinned_maven_install")
 
 pinned_maven_install()

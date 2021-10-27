@@ -14,6 +14,7 @@ import static org.lwjgl.system.MemoryUtil.*;
 
 public class GitGame {
 
+    private GitGameEngine gitGameEngine = new GitGameEngine();
     // The window handle
     private long window;
 
@@ -53,8 +54,13 @@ public class GitGame {
 
         // Setup a key callback. It will be called every time a key is pressed, repeated or released.
         glfwSetKeyCallback(window, (window, key, scancode, action, mods) -> {
-            if ( key == GLFW_KEY_ESCAPE && action == GLFW_RELEASE )
+            if ( key == GLFW_KEY_ESCAPE && action == GLFW_RELEASE ) {
                 glfwSetWindowShouldClose(window, true); // We will detect this in the rendering loop
+            }
+            if (key == GLFW_KEY_1 && action == GLFW_RELEASE ) {
+                gitGameEngine.createGameFolder();
+                
+            }
         });
 
         // Get the thread stack and push a new frame
@@ -94,7 +100,7 @@ public class GitGame {
         GL.createCapabilities();
 
         // Set the clear color
-        glClearColor(1.0f, 0.0f, 0.0f, 0.0f);
+        glClearColor(0.0f, 0.0f, 0.0f, 0.0f);
 
         // Run the rendering loop until the user has attempted to close
         // the window or has pressed the ESCAPE key.

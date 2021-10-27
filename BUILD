@@ -1,7 +1,6 @@
 java_binary(
-    name = "GitGame",
-    srcs = ["src/GitGame.java"],
-    jvm_flags = ["-Dorg.lwjgl.util.DebugLoader=true"],
+    name = "game",
+    srcs = glob(["src/*.java"]),
     main_class = "src.GitGame",
     deps = [
         "@maven//:org_lwjgl_lwjgl",
@@ -10,6 +9,7 @@ java_binary(
         "@maven//:org_lwjgl_lwjgl_openal",
         "@maven//:org_lwjgl_lwjgl_opengl",
         "@maven//:org_lwjgl_lwjgl_stb",
+        "@maven//:org_eclipse_jgit_org_eclipse_jgit",
     ] + select({
         "@bazel_tools//src/conditions:windows": [
             "@maven//:org_lwjgl_lwjgl_assimp_natives_windows",
