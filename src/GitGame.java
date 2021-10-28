@@ -3,6 +3,7 @@ import org.lwjgl.*;
 import org.lwjgl.glfw.*;
 import org.lwjgl.opengl.*;
 import org.lwjgl.system.*;
+import src.GitGameEngine.GitGameEngine;
 
 import java.nio.*;
 
@@ -59,7 +60,7 @@ public class GitGame {
             }
             if (key == GLFW_KEY_1 && action == GLFW_RELEASE ) {
                 gitGameEngine.createGameFolder();
-                
+                gitGameEngine.setupBasicProblem();
             }
         });
 

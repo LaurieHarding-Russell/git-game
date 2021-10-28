@@ -1,6 +1,6 @@
 java_binary(
     name = "game",
-    srcs = glob(["src/*.java"]),
+    srcs = glob(["src/**/*.java"]),
     main_class = "src.GitGame",
     deps = [
         "@maven//:org_lwjgl_lwjgl",
