@@ -10,6 +10,7 @@ java_binary(
         "@maven//:org_lwjgl_lwjgl_opengl",
         "@maven//:org_lwjgl_lwjgl_stb",
         "@maven//:org_eclipse_jgit_org_eclipse_jgit",
+        "@maven//:com_google_guava_guava",
     ] + select({
         "@bazel_tools//src/conditions:windows": [
             "@maven//:org_lwjgl_lwjgl_assimp_natives_windows",

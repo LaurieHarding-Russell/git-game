@@ -42,6 +42,7 @@ maven_install(
         "org.lwjgl:lwjgl-opengl::natives-windows:" + LWJGL_VERSION,
         "org.lwjgl:lwjgl-stb::natives-windows:" + LWJGL_VERSION,
         "org.eclipse.jgit:org.eclipse.jgit:4.6.0.201612231935-r",
+        "com.google.guava:guava:31.0.1-jre",
     ],
     maven_install_json = "//:maven_install.json",
     repositories = [
