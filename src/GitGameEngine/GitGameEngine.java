@@ -1,5 +1,7 @@
 package src.GitGameEngine;
 
+import src.GitGameEngine.BasicProblem.CommitProblem;
+import src.GitGameEngine.BasicProblem.PushProblem;
 import src.GitGameEngine.BasicProblem.SetupRepoProblem;
 
 import java.io.File;
@@ -7,12 +9,15 @@ import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.util.Comparator;
+import java.util.List;
 
 public class GitGameEngine {
 
-    private Integer score = 0;
-
     private static SetupRepoProblem setupRepoProblem = new SetupRepoProblem();
+    private static CommitProblem commitProblem = new CommitProblem();
+    private static PushProblem pushProblem = new PushProblem();
+
+    List<GitEngineProblem> gitEngineProblemBasic = List.of(setupRepoProblem, commitProblem);
 
     public static final String ANSI_RESET = "\u001B[0m";
     public static final String ANSI_BLACK = "\u001B[30m";
@@ -36,32 +41,14 @@ public class GitGameEngine {
             gameDirectory.mkdirs();
         }
     }
-
-    public void cleanFolder() {
-        try {
-            deleteDirectoryStream(gameDirectory.toPath());
-            createGameFolder();
-        } catch(Exception e) {
-            System.err.println("");
-        }
-    }
     
-    public void setupBasicProblem() {
+    public GitEngineProblem setupBasicProblem() {
+        createGameFolder();
         System.out.println("Please enter following command into a terminal to go to the git game folder.");
         System.out.println(ANSI_BLUE + "cd " + System.getProperty("user.dir") + "/" + "gitGameGameFolder" + ANSI_RESET);
         cleanFolder();
-        setupRepoProblem.setup();
-//        FIXME, Think about this.
-        try {
-            do {
-                Thread.sleep(100);
-            }while(!setupRepoProblem.solutionPassing());
-
-            score = score + setupRepoProblem.getPoints();
-            System.out.println("Score " + score);
-        } catch(Exception e) {
-            System.err.println("Huh, something broken. " + e);
-        }
+        GitEngineProblem gitEngineProblem = gitEngineProblemBasic.get((int) (Math.random() * gitEngineProblemBasic.size()));
+        return gitEngineProblem;
 
     }
 
@@ -86,6 +73,15 @@ public class GitGameEngine {
                 .sorted(Comparator.reverseOrder())
                 .map(Path::toFile)
                 .forEach(File::delete);
+    }
+
+    private void cleanFolder() {
+        try {
+            deleteDirectoryStream(gameDirectory.toPath());
+            createGameFolder();
+        } catch(Exception e) {
+            System.err.println("");
+        }
     }
 
 }

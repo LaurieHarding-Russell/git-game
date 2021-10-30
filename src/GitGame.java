@@ -3,6 +3,8 @@ import org.lwjgl.*;
 import org.lwjgl.glfw.*;
 import org.lwjgl.opengl.*;
 import org.lwjgl.system.*;
+import src.GitGameEngine.GitEngineMessage;
+import src.GitGameEngine.GitEngineProblem;
 import src.GitGameEngine.GitGameEngine;
 
 import java.nio.*;
@@ -18,6 +20,8 @@ public class GitGame {
     private GitGameEngine gitGameEngine = new GitGameEngine();
     // The window handle
     private long window;
+    private GitEngineProblem gitEngineProblem = null;
+    private Integer score = 0;
 
     public void run() {
         System.out.println("Hello LWJGL " + Version.getVersion() + "!");
@@ -49,18 +53,20 @@ public class GitGame {
         glfwWindowHint(GLFW_RESIZABLE, GLFW_TRUE); // the window will be resizable
 
         // Create the window
-        window = glfwCreateWindow(300, 300, "Git Game!", NULL, NULL);
+        window = glfwCreateWindow(500, 500, "Git Game!", NULL, NULL);
         if ( window == NULL )
             throw new RuntimeException("Failed to create the GLFW window");
 
         // Setup a key callback. It will be called every time a key is pressed, repeated or released.
+        System.out.println("Press 1 for a basic git problem.");
         glfwSetKeyCallback(window, (window, key, scancode, action, mods) -> {
             if ( key == GLFW_KEY_ESCAPE && action == GLFW_RELEASE ) {
                 glfwSetWindowShouldClose(window, true); // We will detect this in the rendering loop
             }
             if (key == GLFW_KEY_1 && action == GLFW_RELEASE ) {
-                gitGameEngine.createGameFolder();
-                gitGameEngine.setupBasicProblem();
+                gitEngineProblem = gitGameEngine.setupBasicProblem();
+                GitEngineMessage message = gitEngineProblem.setup();
+                System.out.println(message.getMessage());
             }
         });
 
@@ -113,6 +119,18 @@ public class GitGame {
             // Poll for window events. The key callback above will only be
             // invoked during this call.
             glfwPollEvents();
+
+            if (gitEngineProblem != null) {
+                GitEngineMessage solutionCheck = gitEngineProblem.solutionPassing();
+                if (solutionCheck.getSuccess()) {
+                    score = score + gitEngineProblem.getPoints();
+                    System.out.println("Score " + score);
+                    if (solutionCheck.getMessage() != null) {
+                        System.out.println(solutionCheck.getMessage());
+                    }
+                    gitEngineProblem = null;
+                }
+            }
         }
     }
 

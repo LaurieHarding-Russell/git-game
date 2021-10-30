@@ -2,10 +2,10 @@ package src.GitGameEngine;
 
 
 public interface GitEngineProblem {
-    
-    void setup();
 
-    Boolean solutionPassing();
+    GitEngineMessage setup();
+
+    GitEngineMessage solutionPassing();
 
     Integer getPoints();
 }

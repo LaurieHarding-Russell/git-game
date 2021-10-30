@@ -3,6 +3,7 @@ package src.GitGameEngine.BasicProblem;
 import org.eclipse.jgit.api.CheckoutCommand;
 import org.eclipse.jgit.api.Git;
 import org.eclipse.jgit.lib.Repository;
+import src.GitGameEngine.GitEngineMessage;
 import src.GitGameEngine.GitEngineProblem;
 
 import java.io.File;
@@ -12,12 +13,12 @@ import static src.GitGameEngine.GitGameEngine.GIT_GAME_LOCATION;
 
 public class PushProblem implements GitEngineProblem {
 
-    public void setup() {
-        System.out.println("push the commit."); // TODO
+    public GitEngineMessage setup() {
+        return new GitEngineMessage();
     }
 
-    public Boolean solutionPassing() {
-        return false; // todo
+    public GitEngineMessage solutionPassing() {
+        return new GitEngineMessage();
     }
 
     public Integer getPoints() {
