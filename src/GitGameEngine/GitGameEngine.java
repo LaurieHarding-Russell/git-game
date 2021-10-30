@@ -53,18 +53,22 @@ public class GitGameEngine {
     }
 
     public void setupBeginnerProblem() {
+        createGameFolder();
 
     }
 
     public void setupIntermediateProblem() {
+        createGameFolder();
 
     }
 
     public void setupMasterProblem() {
+        createGameFolder();
 
     }
 
     public void setupWizardProblem() {
+        createGameFolder();
 
     }
 
