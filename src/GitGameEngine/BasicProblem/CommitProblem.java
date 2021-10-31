@@ -26,12 +26,16 @@ public class CommitProblem implements GitEngineProblem {
     }
 
     public GitEngineMessage solutionPassing() {
-        Git git = Git.init().setDirectory( new File("gitGameGameFolder") ).call();
+        Git git = null;
         int countCommits = 0;
         try {
+            git = Git.init().setDirectory( new File("gitGameGameFolder") ).call();
             countCommits = Iterables.size(git.log().call());
-        } catch(Exception ignored) {}
-        git.close();
+        } catch(Exception ignored) {
+            if (git != null) {
+                git.close();
+            }
+        }
         return new GitEngineMessage()
                 .setSuccess(countCommits > 0); // FIXME, probably should check if file is actually in git.
     }
