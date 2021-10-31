@@ -3,6 +3,7 @@ package src.GitGameEngine;
 import src.GitGameEngine.BasicProblem.CommitProblem;
 import src.GitGameEngine.BasicProblem.PushProblem;
 import src.GitGameEngine.BasicProblem.SetupRepoProblem;
+import src.GitGameEngine.BeginnerProblem.AmendCommitProblem;
 
 import java.io.File;
 import java.io.IOException;
@@ -13,11 +14,14 @@ import java.util.List;
 
 public class GitGameEngine {
 
-    private static SetupRepoProblem setupRepoProblem = new SetupRepoProblem();
-    private static CommitProblem commitProblem = new CommitProblem();
-    private static PushProblem pushProblem = new PushProblem();
+    private SetupRepoProblem setupRepoProblem = new SetupRepoProblem();
+    private CommitProblem commitProblem = new CommitProblem();
+    private PushProblem pushProblem = new PushProblem();
+
+    private AmendCommitProblem amendCommitProblem = new AmendCommitProblem();
 
     List<GitEngineProblem> gitEngineProblemBasic = List.of(setupRepoProblem, commitProblem);
+    List<GitEngineProblem> gitEngineBeginnerBasic = List.of(amendCommitProblem);
 
     public static final String ANSI_RESET = "\u001B[0m";
     public static final String ANSI_BLACK = "\u001B[30m";
@@ -43,7 +47,6 @@ public class GitGameEngine {
     }
     
     public GitEngineProblem setupBasicProblem() {
-        createGameFolder();
         System.out.println("Please enter following command into a terminal to go to the git game folder.");
         System.out.println(ANSI_BLUE + "cd " + System.getProperty("user.dir") + "/" + "gitGameGameFolder" + ANSI_RESET);
         cleanFolder();
@@ -52,24 +55,36 @@ public class GitGameEngine {
 
     }
 
-    public void setupBeginnerProblem() {
-        createGameFolder();
-
+    public GitEngineProblem setupBeginnerProblem() {
+        System.out.println("Please enter following command into a terminal to go to the git game folder.");
+        System.out.println(ANSI_BLUE + "cd " + System.getProperty("user.dir") + "/" + "gitGameGameFolder" + ANSI_RESET);
+        cleanFolder();
+        GitEngineProblem gitEngineProblem = gitEngineBeginnerBasic.get((int) (Math.random() * gitEngineBeginnerBasic.size()));
+        return gitEngineProblem;
     }
 
-    public void setupIntermediateProblem() {
-        createGameFolder();
-
+    public GitEngineProblem setupIntermediateProblem() {
+        System.out.println("Please enter following command into a terminal to go to the git game folder.");
+        System.out.println(ANSI_BLUE + "cd " + System.getProperty("user.dir") + "/" + "gitGameGameFolder" + ANSI_RESET);
+        cleanFolder();
+        GitEngineProblem gitEngineProblem = gitEngineProblemBasic.get((int) (Math.random() * gitEngineProblemBasic.size()));
+        return gitEngineProblem;
     }
 
-    public void setupMasterProblem() {
-        createGameFolder();
-
+    public GitEngineProblem setupMasterProblem() {
+        System.out.println("Please enter following command into a terminal to go to the git game folder.");
+        System.out.println(ANSI_BLUE + "cd " + System.getProperty("user.dir") + "/" + "gitGameGameFolder" + ANSI_RESET);
+        cleanFolder();
+        GitEngineProblem gitEngineProblem = gitEngineProblemBasic.get((int) (Math.random() * gitEngineProblemBasic.size()));
+        return gitEngineProblem;
     }
 
-    public void setupWizardProblem() {
-        createGameFolder();
-
+    public GitEngineProblem setupWizardProblem() {
+        System.out.println("Please enter following command into a terminal to go to the git game folder.");
+        System.out.println(ANSI_BLUE + "cd " + System.getProperty("user.dir") + "/" + "gitGameGameFolder" + ANSI_RESET);
+        cleanFolder();
+        GitEngineProblem gitEngineProblem = gitEngineProblemBasic.get((int) (Math.random() * gitEngineProblemBasic.size()));
+        return gitEngineProblem;
     }
 
     private void deleteDirectoryStream(Path path) throws IOException {

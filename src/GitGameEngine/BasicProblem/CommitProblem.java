@@ -33,6 +33,7 @@ public class CommitProblem implements GitEngineProblem {
             countCommits = Iterables.size(git.log().call());
         } catch(Exception ignored) {}
 
+        git.close();
         return new GitEngineMessage()
                 .setSuccess(countCommits > 0);
     }

@@ -22,6 +22,7 @@ public class SetupRepoProblem implements GitEngineProblem {
         try {
             CheckoutCommand git = Git.open(new File(GIT_GAME_LOCATION + "/.git")).checkout();
             Repository repository = git.getRepository();
+            repository.close(); // FIXME... closing
             return new GitEngineMessage()
                     .setSuccess(true);
         } catch (Exception e) {

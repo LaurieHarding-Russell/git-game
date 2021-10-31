@@ -59,12 +59,36 @@ public class GitGame {
 
         // Setup a key callback. It will be called every time a key is pressed, repeated or released.
         System.out.println("Press 1 for a basic git problem.");
+        System.out.println("Press 2 for a beginner level git problem.");
+        System.out.println("Press 3 for an intermediate level git problem.");
+        System.out.println("Press 4 for an expert level git problem.");
+        System.out.println("Press 5 for a wizard level git problem.");
+
         glfwSetKeyCallback(window, (window, key, scancode, action, mods) -> {
             if ( key == GLFW_KEY_ESCAPE && action == GLFW_RELEASE ) {
                 glfwSetWindowShouldClose(window, true); // We will detect this in the rendering loop
-            }
-            if (key == GLFW_KEY_1 && action == GLFW_RELEASE ) {
+            } else if (key == GLFW_KEY_1 && action == GLFW_RELEASE ) {
                 gitEngineProblem = gitGameEngine.setupBasicProblem();
+                GitEngineMessage message = gitEngineProblem.setup();
+                System.out.println(message.getMessage());
+            } else if (key == GLFW_KEY_2 && action == GLFW_RELEASE ) {
+                gitEngineProblem = gitGameEngine.setupBeginnerProblem();
+                GitEngineMessage message = gitEngineProblem.setup();
+                System.out.println(message.getMessage());
+            } else if (key == GLFW_KEY_2 && action == GLFW_RELEASE ) {
+                gitEngineProblem = gitGameEngine.setupBeginnerProblem();
+                GitEngineMessage message = gitEngineProblem.setup();
+                System.out.println(message.getMessage());
+            } else if (key == GLFW_KEY_3 && action == GLFW_RELEASE ) {
+                gitEngineProblem = gitGameEngine.setupIntermediateProblem();
+                GitEngineMessage message = gitEngineProblem.setup();
+                System.out.println(message.getMessage());
+            } else if (key == GLFW_KEY_4 && action == GLFW_RELEASE ) {
+                gitEngineProblem = gitGameEngine.setupMasterProblem();
+                GitEngineMessage message = gitEngineProblem.setup();
+                System.out.println(message.getMessage());
+            } else if (key == GLFW_KEY_5 && action == GLFW_RELEASE ) {
+                gitEngineProblem = gitGameEngine.setupWizardProblem();
                 GitEngineMessage message = gitEngineProblem.setup();
                 System.out.println(message.getMessage());
             }
