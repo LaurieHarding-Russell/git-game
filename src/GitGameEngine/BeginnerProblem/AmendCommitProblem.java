@@ -12,29 +12,44 @@ import java.io.File;
 import static src.GitGameEngine.GitGameEngine.GIT_GAME_LOCATION;
 
 public class AmendCommitProblem implements GitEngineProblem {
-    private Git git;
-
     private PersonIdent friendIdentity = new PersonIdent("Best Friend", "Friend@bff.com"); // FIXME, user generator? Or do we let them customize it?
     private String messageNotSafeForWork = "I love snow";
 
     public GitEngineMessage setup() {
+        Git git = null;
         try {
             git = Git.init().setDirectory(new File("gitGameGameFolder")).call();
             File aFile = new File(GIT_GAME_LOCATION + "/A.txt"); // Maybe a naming engine?
             aFile.createNewFile();
             git.add().addFilepattern(".").call();
             git.commit().setAuthor(friendIdentity).setMessage(messageNotSafeForWork).call();
-        } catch(Exception ignored) {}
+            git.close();
+        } catch(Exception ignored) {
+            if (git != null) {
+                git.close();
+            }
+        }
         return new GitEngineMessage()
                 .setMessage("Oh no! Your friend committed something inappropriate! Help them amend their commit message to anything else!");
     }
 
     public GitEngineMessage solutionPassing() {
-        int count = GitEngineHelperFunctions.getLogCount(git.getRepository());
-        RevCommit badCommit = GitEngineHelperFunctions.getHeadCommit(git.getRepository());
 
-            if (count == 1 && badCommit.getFullMessage().equals(messageNotSafeForWork)) { // FIXME, if they do weird stuff this might now technically work.
-            git.close();
+        Git git = null;
+        int count = 0;
+        RevCommit badCommit = null;
+        try {
+            git = Git.init().setDirectory(new File("gitGameGameFolder")).call();
+            count = GitEngineHelperFunctions.getLogCount(git.getRepository());
+            badCommit = GitEngineHelperFunctions.getHeadCommit(git.getRepository());
+        } catch (Exception e) {
+            if (git != null) {
+                git.close();
+            }
+        }
+        git.close();
+
+        if (count == 1 && badCommit.getFullMessage().equals(messageNotSafeForWork)) { // FIXME, if they do weird stuff this might now technically work.
             return new GitEngineMessage()
                     .setSuccess(true);
         }
