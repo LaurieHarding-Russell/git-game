@@ -11,6 +11,7 @@ java_binary(
         "@maven//:org_lwjgl_lwjgl_stb",
         "@maven//:org_eclipse_jgit_org_eclipse_jgit",
         "@maven//:com_google_guava_guava",
+        ":lombok",
     ] + select({
         "@bazel_tools//src/conditions:windows": [
             "@maven//:org_lwjgl_lwjgl_assimp_natives_windows",
@@ -37,4 +38,19 @@ java_binary(
             "@maven//:org_lwjgl_lwjgl_stb_natives_macos",
         ],
     }),
+)
+
+java_library(
+    name = "lombok",
+    exported_plugins = [":lombok_plugin"],
+    exports = ["@maven//:org_projectlombok_lombok"],
+)
+
+java_plugin(
+    name = "lombok_plugin",
+    processor_class = "lombok.launch.AnnotationProcessorHider$AnnotationProcessor",
+    visibility = ["//visibility:public"],
+    deps = [
+        "@maven//:org_projectlombok_lombok",
+    ],
 )
